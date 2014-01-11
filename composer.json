@@ -21,7 +21,7 @@
     "autoload": {
         "psr-0": {
             "pallo\\web\\cms\\controller\\widget\\": ["src/"],
-            "pallo\\web\\cms\\text\\": ["src/"],
+            "pallo\\web\\cms\\text\\": ["src/"]
         }
     }
 }
