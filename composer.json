@@ -1,0 +1,27 @@
+{
+    "name": "pallo/web-cms-widgets",
+    "description": "Base widget for the CMS application of the Pallo framework",
+    "license": "MIT",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Joris Vandeweerd",
+            "email": "joris@statik.be"
+        }
+    ],
+    "require": {
+        "pallo/lib-cms": ">=0.5.0",
+        "pallo/lib-common": ">=0.4.0",
+        "pallo/lib-form": ">=0.3.0",
+        "pallo/lib-i18n": ">=0.1.0",
+        "pallo/lib-validation": ">=0.1.0",
+        "pallo/lib-widget": ">=0.1.1",
+        "pallo/web-cms": ">=0.5.0"
+    }, 
+    "autoload": {
+        "psr-0": {
+            "pallo\\web\\cms\\controller\\widget\\": ["src/"],
+            "pallo\\web\\cms\\text\\": ["src/"],
+        }
+    }
+}
