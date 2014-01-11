@@ -2,7 +2,7 @@
     "name": "pallo/web-cms-widgets",
     "description": "Base widget for the CMS application of the Pallo framework",
     "license": "MIT",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "authors": [
         {
             "name": "Joris Vandeweerd",
@@ -21,7 +21,7 @@
     "autoload": {
         "psr-0": {
             "pallo\\web\\cms\\controller\\widget\\": ["src/"],
-            "pallo\\web\\cms\\text\\": ["src/"],
+            "pallo\\web\\cms\\text\\": ["src/"]
         }
     }
 }
