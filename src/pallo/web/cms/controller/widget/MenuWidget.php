@@ -10,10 +10,10 @@ use pallo\library\cms\node\NodeModel;
  */
 class MenuWidget extends AbstractWidget {
 
-	/**
-	 * Machine name of this widget
-	 * @var string
-	 */
+    /**
+     * Machine name of this widget
+     * @var string
+     */
     const NAME = 'menu';
 
     /**
@@ -45,6 +45,12 @@ class MenuWidget extends AbstractWidget {
      * @var boolean
      */
     const DEFAULT_SHOW_TITLE = false;
+
+    /**
+     * Default css class value of a menu widget
+     * @var boolean
+     */
+    const DEFAULT_CSS_CLASS = false;
 
     /**
      * Parent prefix for a absolute parent
@@ -83,6 +89,12 @@ class MenuWidget extends AbstractWidget {
     const PROPERTY_SHOW_TITLE = 'title';
 
     /**
+     * Setting key for the css class value
+     * @var string
+     */
+    const PROPERTY_CSS_CLASS = 'class';
+
+    /**
      * Sets a title view to the response
      * @return null
      */
@@ -90,6 +102,7 @@ class MenuWidget extends AbstractWidget {
         $parent = $this->getParent();
         $depth = $this->getDepth();
         $showTitle = $this->getShowTitle();
+        $cssClass = $this->getCssClass();
 
         if (!$parent) {
             return;
@@ -104,9 +117,10 @@ class MenuWidget extends AbstractWidget {
         }
 
         $this->setTemplateView(self::TEMPLATE, array(
-        	'title' => $title,
+            'title' => $title,
             'nodeTypes' => $nodeModel->getNodeTypeManager()->getNodeTypes(),
-        	'items' => $nodes,
+            'items' => $nodes,
+            'cssClass' => $cssClass
         ));
 
         if ($this->properties->isAutoCache()) {
@@ -124,6 +138,7 @@ class MenuWidget extends AbstractWidget {
         $parent = $this->getParent();
         $depth = $this->getDepth();
         $showTitle = $this->getShowTitle();
+        $cssClass = $this->getCssClass();
 
         if ($parent) {
             $nodeModel = $this->dependencyInjector->get('pallo\\library\\cms\\node\\NodeModel');
@@ -136,7 +151,8 @@ class MenuWidget extends AbstractWidget {
         $preview = '';
         $preview .= $translator->translate('label.menu.parent') . ': ' . $parent . '<br />';
         $preview .= $translator->translate('label.menu.depth') . ': ' . $depth . '<br />';
-        $preview .= $translator->translate('label.title.show') . ': ' . $translator->translate($showTitle ? 'label.yes' : 'label.no');
+        $preview .= $translator->translate('label.title.show') . ': ' . $translator->translate($showTitle ? 'label.yes' : 'label.no') . '<br />';
+        $preview .= $translator->translate('label.menu.css.class') . ': ' . $cssClass;
 
         return $preview;
     }
@@ -182,6 +198,7 @@ class MenuWidget extends AbstractWidget {
             self::PROPERTY_PARENT => $this->getParent(false),
             self::PROPERTY_DEPTH => $this->getDepth(),
             self::PROPERTY_SHOW_TITLE => $this->getShowTitle(),
+            self::PROPERTY_CSS_CLASS=> $this->getCssClass(),
         );
 
         $form = $this->createFormBuilder($data);
@@ -202,6 +219,10 @@ class MenuWidget extends AbstractWidget {
             'label' => $translator->translate('label.title.show'),
             'description' => $translator->translate('label.menu.title.show.description'),
         ));
+        $form->addRow(self::PROPERTY_CSS_CLASS, 'string', array(
+            'label' => $translator->translate('label.menu.css.class'),
+            'description' => $translator->translate('label.menu.css.class.description'),
+        ));
 
         $form->setRequest($this->request);
 
@@ -219,6 +240,7 @@ class MenuWidget extends AbstractWidget {
                 $this->properties->setWidgetProperty(self::PROPERTY_PARENT, $data[self::PROPERTY_PARENT]);
                 $this->properties->setWidgetProperty(self::PROPERTY_DEPTH, $data[self::PROPERTY_DEPTH]);
                 $this->properties->setWidgetProperty(self::PROPERTY_SHOW_TITLE, $data[self::PROPERTY_SHOW_TITLE]);
+                $this->properties->setWidgetProperty(self::PROPERTY_CSS_CLASS, $data[self::PROPERTY_CSS_CLASS]);
 
                 return true;
             } catch (ValidationException $e) {
@@ -227,7 +249,7 @@ class MenuWidget extends AbstractWidget {
         }
 
         $this->setTemplateView('cms/widget/menu/properties', array(
-        	'form' => $form->getView(),
+            'form' => $form->getView(),
         ));
 
         return false;
@@ -287,6 +309,14 @@ class MenuWidget extends AbstractWidget {
      */
     private function getShowTitle() {
         return $this->properties->getWidgetProperty(self::PROPERTY_SHOW_TITLE, self::DEFAULT_SHOW_TITLE);
+    }
+
+    /**
+     * Get the class value
+     * @return boolean
+     */
+    private function getCssClass() {
+        return $this->properties->getWidgetProperty(self::PROPERTY_CSS_CLASS, self::DEFAULT_CSS_CLASS);
     }
 
 }
