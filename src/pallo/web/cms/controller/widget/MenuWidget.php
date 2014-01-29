@@ -47,12 +47,6 @@ class MenuWidget extends AbstractWidget {
     const DEFAULT_SHOW_TITLE = false;
 
     /**
-     * Default css class value of a menu widget
-     * @var boolean
-     */
-    const DEFAULT_CSS_CLASS = false;
-
-    /**
      * Parent prefix for a absolute parent
      * @var string
      */
@@ -316,7 +310,7 @@ class MenuWidget extends AbstractWidget {
      * @return boolean
      */
     private function getCssClass() {
-        return $this->properties->getWidgetProperty(self::PROPERTY_CSS_CLASS, self::DEFAULT_CSS_CLASS);
+        return $this->properties->getWidgetProperty(self::PROPERTY_CSS_CLASS);
     }
 
 }
